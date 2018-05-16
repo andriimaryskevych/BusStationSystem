@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="BusinessModels\" />
+    <Folder Include="Constants\" />
+    <Folder Include="DTO\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusStationSystem.DAL\BusStationSystem.DAL.csproj" />
+  </ItemGroup>
+
+</Project>
