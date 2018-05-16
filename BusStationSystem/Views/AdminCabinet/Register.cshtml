@@ -1,0 +1,28 @@
+﻿@model BusStationSystem.ViewModels.RegisterVM
+@{
+    ViewData["Title"] = "Реєстрація";
+}
+
+<br />
+<h2 class="text-center"><strong>Реєстрація</strong></h2>
+<br />
+<div class="container-fluid h-100">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-sm-3 col-10 offset-2 offset-sm-0">
+            <form method="post" asp-controller="Account" asp-action="Register">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <input asp-for="UserName" class="form-control" placeholder="Ім'я користувача">
+                </div>
+                <div class="form-group">
+                    <input asp-for="Password" class="form-control" placeholder="Пароль">
+                </div>
+                <div class="form-group">
+                    <input asp-for="PasswordConfirm" class="form-control" placeholder="Пітвердити пароль">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Зареєстуватися" class="btn btn-lg btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>

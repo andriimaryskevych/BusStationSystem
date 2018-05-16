@@ -11,6 +11,20 @@ namespace BusStationSystem.BLL.Infrastructure
         {
             services.AddDbContext<ApplicationContext>(options =>
                options.UseSqlServer(connectionString));
+
+            services.AddDbContext<ApplicationIdentityContext>(options =>
+                 options.UseSqlServer(connectionString));
+        }
+
+        public static void AddIdentityService(this IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+            })
+               .AddEntityFrameworkStores<ApplicationIdentityContext>();
         }
     }
 }

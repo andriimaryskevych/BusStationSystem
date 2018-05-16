@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using BusStationSystem.BLL.Infrastructure;
+using BusStationSystem.DAL.EF;
+using BusStationSystem.DAL.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BusStationSystem
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -23,6 +28,11 @@ namespace BusStationSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddContextService(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddIdentityService();
+
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationContext>();
+
             services.AddMvc();
         }
 
