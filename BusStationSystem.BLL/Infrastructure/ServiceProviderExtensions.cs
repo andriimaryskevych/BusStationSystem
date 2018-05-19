@@ -3,6 +3,9 @@ using BusStationSystem.DAL.EF;
 using BusStationSystem.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using BusStationSystem.DAL.Interfaces;
+using BusStationSystem.DAL.Repositories;
+
 namespace BusStationSystem.BLL.Infrastructure
 {
     public static class ServiceProviderExtensions
@@ -25,6 +28,11 @@ namespace BusStationSystem.BLL.Infrastructure
                 opt.Password.RequireUppercase = false;
             })
                .AddEntityFrameworkStores<ApplicationIdentityContext>();
+        }
+
+        public static void AddUnitOfWorkService(this IServiceCollection services)
+        {
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }

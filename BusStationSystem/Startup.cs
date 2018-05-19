@@ -29,9 +29,7 @@ namespace BusStationSystem
         {
             services.AddContextService(Configuration.GetConnectionString("DefaultConnection"));
             services.AddIdentityService();
-
-            //services.AddIdentity<User, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddUnitOfWorkService();
 
             services.AddMvc();
         }

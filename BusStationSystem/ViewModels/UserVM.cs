@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace BusStationSystem.ViewModels
 {
     [ExcludeFromCodeCoverage]
-    public abstract class UserVM
+    public class UserVM
     {
         public string Id {get; set;}
 
@@ -20,5 +20,6 @@ namespace BusStationSystem.ViewModels
         [Required(ErrorMessage = "Пароль не введений.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
     }
 }

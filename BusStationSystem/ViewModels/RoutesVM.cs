@@ -9,10 +9,9 @@ namespace BusStationSystem.ViewModels
     {
         public string RouteNumber { get; set; }
         public string RouteType { get; set; }
-        public int Destination { get; set; }
+        public string Destination { get; set; }
         public DateTime DetartureDate { get; set; }
         public DateTime ArrivalDate { get; set; }   
-        public string BusId { get; set; }
         public string BusNumber { get; set; }
         public string BusType { get; set; }
         public int PlaceCount { get; set; }

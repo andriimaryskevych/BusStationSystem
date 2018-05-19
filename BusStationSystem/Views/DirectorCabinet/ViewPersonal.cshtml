@@ -7,23 +7,28 @@
 <h2 class="text-center"><strong>Дані працівників</strong></h2>
 <br />
 <table class="table">
-    <tr><th>Ім'я та прізвище</th><th>Пароль</th><th></th><th></th><th></th></tr>
+    <tr><th>Ім'я та прізвище</th><th></th><th></th><th></th></tr>
     @foreach (var user in Model)
     {
-    <tr>
-        <td>@user.UserNameSurname</td>
-        <td>@user.Password</td>
-        <form asp-action="ViewUserActivety" asp-route-id="@user.Id" method="post">
-            <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@user.Id">Редагувати</a>
-            <button type="submit" class="btn btn-sm btn-danger">
-                Активність
-            </button>
-        </form>
-        <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
-            <button type="submit" class="btn btn-sm btn-danger">
-                Видалити
-            </button>
-        </form>
-    </tr>
+        <tr>
+            <td>@user.UserNameSurname</td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@user.Id">Редагувати</a>
+            </td>
+            <td>
+                <form asp-action="ViewUserActivety" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Активність
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
     }
 </table>

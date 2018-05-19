@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BusStationSystem.ViewModels.RoutesVM>
+@{
+    ViewData["Title"] = "Перегляд працівників";
+}
+
+<br />
+<h2 class="text-center"><strong>Дані маршутів</strong></h2>
+<br />
+<table class="table">
+    <tr><th>Напрямок</th><th>Номерний знак</th><th>Тип автобуса</th><th>К-сть</th><th>Зайнято</th><th></th><th></th></tr>
+    @foreach (var route in Model)
+    {
+    <tr>
+        <td>@route.Destination</td>
+        <td>@route.BusNumber</td>
+        <td>@route.BusType</td>
+        <td>@route.PlaceCount</td>
+        <td>@route.OccupiedPlaceCount</td>
+
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@route.RouteNumber">Редагувати</a>
+        </td>
+        <td>
+            <form asp-action="DeleteUser" asp-route-id="@route.RouteNumber" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Видалити
+                </button>
+            </form>
+        </td>
+    </tr>
+    }
+</table>
