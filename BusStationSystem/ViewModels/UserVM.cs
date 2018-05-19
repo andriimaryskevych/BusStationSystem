@@ -10,11 +10,11 @@ namespace BusStationSystem.ViewModels
     [ExcludeFromCodeCoverage]
     public abstract class UserVM
     {
+        public string Id {get; set;}
 
         [Display(Name = "Ім'я користувача")]
         [Required(ErrorMessage = "Ім'я користувача не введено.")]
-        [EmailAddress(ErrorMessage = "Ім'я користувача введено не коректно.")]
-        public string UserName { get; set; }
+        public string UserNameSurname { get; set; }
 
         [Display(Name = "Пароль")]
         [Required(ErrorMessage = "Пароль не введений.")]

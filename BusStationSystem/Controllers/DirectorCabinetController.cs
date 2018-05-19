@@ -9,21 +9,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BusStationSystem.Controllers
 {
-    public class AdminCabinetController : Controller
+    public class DirectorCabinetController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AdminCabinetController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public DirectorCabinetController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM model)
         {
