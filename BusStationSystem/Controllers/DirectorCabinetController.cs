@@ -97,7 +97,33 @@ namespace BusStationSystem.Controllers
             return View(viewRoutes);
         }
 
+        public IActionResult ViewBuses()
+        {
+            var buses = _unitOfWork.Buses.GetAll();
+            var viewBuses = new List<BusVM>();
+
+            foreach (var item in buses)
+            {
+                var bus = _unitOfWork.Buses.Get(item.BusNumber);
+                var viewBus = new BusVM
+                {
+                    BusNumber = item.BusNumber,
+                    Type = bus.Type,
+                    PlaceCount = bus.PlaceCount
+                };
+
+                viewBuses.Add(viewBus);
+            }
+
+            return View(viewBuses);
+        }
+
         public IActionResult AddRoute()
+        {
+            return View();
+        }
+
+        public IActionResult AddBus()
         {
             return View();
         }
@@ -121,6 +147,26 @@ namespace BusStationSystem.Controllers
                 _unitOfWork.Save();
 
                 return RedirectToAction("ViewRoutes");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddBus(BusVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = new Bus
+                {
+                    BusNumber = model.BusNumber,
+                    Type = model.Type,
+                    PlaceCount = model.PlaceCount
+                };
+
+                _unitOfWork.Buses.Create(entity);
+                _unitOfWork.Save();
+
+                return RedirectToAction("ViewBuses");
             }
             return View(model);
         }
@@ -172,7 +218,7 @@ namespace BusStationSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> DeleteUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
             if (user != null)
@@ -182,5 +228,28 @@ namespace BusStationSystem.Controllers
             return RedirectToAction("ViewUsers");
         }
 
+        [HttpPost]
+        public ActionResult DeleteRoute(string id)
+        {
+            Route route = _unitOfWork.Routes.Get(id);
+            if (route != null)
+            {
+                _unitOfWork.Routes.Delete(route);
+                _unitOfWork.Save();
+            }
+            return RedirectToAction("ViewRoutes");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteBus(string id)
+        {
+            Bus bus = _unitOfWork.Buses.Get(id);
+            if (bus != null)
+            {
+                _unitOfWork.Buses.Delete(bus);
+                _unitOfWork.Save();
+            }
+            return RedirectToAction("ViewBuses");
+        }
     }
 }

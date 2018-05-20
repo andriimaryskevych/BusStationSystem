@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BusStationSystem.ViewModels.RoutesVM>
 @{
-    ViewData["Title"] = "Перегляд працівників";
+    ViewData["Title"] = "Перегляд маршутів";
 }
 
 <br />
@@ -18,10 +18,10 @@
         <td>@route.OccupiedPlaceCount</td>
 
         <td>
-            <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@route.RouteNumber">Редагувати</a>
+            <a class="btn btn-sm btn-primary" asp-action="EditRoute" asp-route-id="@route.RouteNumber">Редагувати</a>
         </td>
         <td>
-            <form asp-action="DeleteUser" asp-route-id="@route.RouteNumber" method="post">
+            <form asp-action="DeleteRoute" asp-route-id="@route.RouteNumber" method="post">
                 <button type="submit" class="btn btn-sm btn-danger">
                     Видалити
                 </button>
