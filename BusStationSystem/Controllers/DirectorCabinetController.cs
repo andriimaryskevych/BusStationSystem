@@ -183,9 +183,87 @@ namespace BusStationSystem.Controllers
             UserVM model = new UserVM
             {
                 Id = user.Id,
-                UserNameSurname = user.UserName,
+                UserNameSurname = user.UserName
             };
 
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult EditBus(string id)
+        {
+            Bus bus =  _unitOfWork.Buses.Get(id);
+            Route route = _unitOfWork.Routes.Find(u => u.BusId == id).FirstOrDefault();
+            if (bus == null)
+            {
+                return NotFound();
+            }
+
+            BusVM model = new BusVM
+            {
+                BusNumber = bus.BusNumber,
+                Type = bus.Type,
+                PlaceCount = bus.PlaceCount,
+                RouteId = route?.RouteNumber
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditBus(BusVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                Bus bus = _unitOfWork.Buses.Get(model.BusNumber);
+                Route route = _unitOfWork.Routes.Find(u => u.BusId == model.BusNumber).FirstOrDefault();
+                if (bus != null)
+                {
+                    bus.BusNumber = model.BusNumber;
+
+                    _unitOfWork.Buses.Update(bus);
+
+                    return RedirectToAction("ViewBuses", "DirectorCabinet");
+                }
+            }
+            return View(model);
+        }
+        
+        [HttpGet]
+        public IActionResult EditRoute(string id)
+        {
+            Route route = _unitOfWork.Routes.Get(id);
+            if (route == null)
+            {
+                return NotFound();
+            }
+            RoutesVM model = new RoutesVM
+            {
+                RouteNumber = route.RouteNumber,
+                RouteType = route.RouteType,
+                ArrivalDate = route.ArrivalDate,
+                DetartureDate = route.DetartureDate,
+                Destination = route.Destination,
+                BusNumber = route.BusId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditRoute(RoutesVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                Route route = _unitOfWork.Routes.Get(model.RouteNumber);
+                if (route != null)
+                {
+                    route.RouteNumber = model.RouteNumber;
+                    _unitOfWork.Routes.Update(route);
+
+                    return RedirectToAction("ViewRoutes", "DirectorCabinet");
+                }
+            }
             return View(model);
         }
 
