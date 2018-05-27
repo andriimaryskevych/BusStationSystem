@@ -1,0 +1,30 @@
+﻿@model BusStationSystem.ViewModels.ActievityVM;
+@{
+    ViewData["Title"] = "Активність";
+}
+
+<br />
+<h2>Перегляд актиності працівника @Model.EmploeeName</h2>
+<br />
+@if (DateTime.Now.Day.Equals(1) && DateTime.Now.Hour.Equals(new DateTime()))
+{
+
+}
+<div class="text-center">
+    <p>Пропрацьовано годин цього місяця:@Model.TotalHours</p>
+    <p>Продано квитків цього місяця:@Model.TotalTickets</p>
+</div>
+
+<table class="table">
+    <tr><th>ID квитка</th><th>ID напрямку</th><th>Категорія</th><th>Ціна</th><th>Дата продажу</th></tr>
+    @foreach (var item in Model.SailedTickets)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.RouteNumber</td>
+            <td>@item.Category</td>
+            <td>@item.Price</td>
+            <td>@item.SaleDate.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>
+    }
+</table>

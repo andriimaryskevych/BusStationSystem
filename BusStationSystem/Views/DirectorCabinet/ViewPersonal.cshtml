@@ -16,7 +16,7 @@
                 <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@user.Id">Редагувати</a>
             </td>
             <td>
-                <form asp-action="ViewUserActivety" asp-route-id="@user.Id" method="post">
+                <form asp-action="ViewActivety" asp-route-id="@user.Id" method="get">
                     <button type="submit" class="btn btn-sm btn-success">
                         Активність
                     </button>

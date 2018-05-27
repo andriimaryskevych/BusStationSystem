@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BusStationSystem.DAL.Entities
+namespace BusStationSystem.ViewModels
 {
-    public class Tickets
+    public class SailedTicket
     {
         public string Id { get; set; }
         public string RouteNumber { get; set; }

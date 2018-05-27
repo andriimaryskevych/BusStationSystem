@@ -10,6 +10,11 @@ namespace BusStationSystem.DAL.Interfaces
     {
         IRepository<Route> Routes { get; }
         IRepository<Bus> Buses { get; }
+        IRepository<Log> Logs { get; }
+        IRepository<TicketHistory> TicketHistories { get; }
+        IRepository<Tickets> Tickets { get; }
+
+        IRepository<User> Users { get; }
 
         void Save();
     }

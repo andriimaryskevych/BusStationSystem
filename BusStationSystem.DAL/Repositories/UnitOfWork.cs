@@ -10,13 +10,29 @@ namespace BusStationSystem.DAL.Repositories
     public class UnitOfWork: IUnitOfWork
     {
         private ApplicationContext database;
+        private ApplicationIdentityContext identityDatabase;
 
         private RouteRepository routeRepository;
         private BusRepository busRepository;
+        private TicketHistoryRepositoty tickethistoryRepositoty;
+        private TicketsRepository ticketsRepository;
+        private LogRepository logRepository;
+        private UserRepository userRepository;
 
-        public UnitOfWork(ApplicationContext applicationContext)
+        public UnitOfWork(ApplicationContext applicationContext, ApplicationIdentityContext applicationIdentityContext)
         {
             database = applicationContext;
+            identityDatabase = applicationIdentityContext;
+        }
+
+        public IRepository<User> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                    userRepository = new UserRepository(identityDatabase);
+                return userRepository;
+            }
         }
 
         public IRepository<Route> Routes
@@ -39,6 +55,35 @@ namespace BusStationSystem.DAL.Repositories
             }
         }
 
+        public IRepository<Log> Logs
+        {
+            get
+            {
+                if (logRepository == null)
+                    logRepository = new LogRepository(database);
+                return logRepository;
+            }
+        }
+
+        public IRepository<Tickets> Tickets
+        {
+            get
+            {
+                if (ticketsRepository == null)
+                    ticketsRepository = new TicketsRepository(database);
+                return ticketsRepository;
+            }
+        }
+
+        public IRepository<TicketHistory> TicketHistories
+        {
+            get
+            {
+                if (tickethistoryRepositoty== null)
+                    tickethistoryRepositoty = new TicketHistoryRepositoty(database);
+                return tickethistoryRepositoty;
+            }
+        }
 
         public void Save()
         {

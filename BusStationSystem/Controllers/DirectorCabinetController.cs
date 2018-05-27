@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusStationSystem.BLL.Constants;
 using BusStationSystem.DAL.Entities;
 using BusStationSystem.DAL.Interfaces;
 using BusStationSystem.ViewModels;
@@ -39,8 +40,7 @@ namespace BusStationSystem.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return View();
                 }
                 else
                 {
@@ -53,21 +53,24 @@ namespace BusStationSystem.Controllers
             return View(model);
         }
 
-        public IActionResult ViewPersonal()
+        public async Task<IActionResult> ViewPersonal()
         {
             var users = _userManager.Users.ToList();
             var viewUsers = new List<UserVM>();
 
             foreach (var item in users)
             {
-
-                var viewUser = new UserVM
+                bool isDirector = await _userManager.IsInRoleAsync(item, Roles.director.ToString());
+                if (!isDirector)
                 {
-                    Id = item.Id,
-                    UserNameSurname = item.UserName
-                };
+                    var viewUser = new UserVM
+                    {
+                        Id = item.Id,
+                        UserNameSurname = item.UserName
+                    };
 
-                viewUsers.Add(viewUser);
+                    viewUsers.Add(viewUser);
+                }
             }
 
             return View(viewUsers);
@@ -192,7 +195,7 @@ namespace BusStationSystem.Controllers
         [HttpGet]
         public IActionResult EditBus(string id)
         {
-            Bus bus =  _unitOfWork.Buses.Get(id);
+            Bus bus = _unitOfWork.Buses.Get(id);
             Route route = _unitOfWork.Routes.Find(u => u.BusId == id).FirstOrDefault();
             if (bus == null)
             {
@@ -228,7 +231,7 @@ namespace BusStationSystem.Controllers
             }
             return View(model);
         }
-        
+
         [HttpGet]
         public IActionResult EditRoute(string id)
         {
@@ -328,6 +331,49 @@ namespace BusStationSystem.Controllers
                 _unitOfWork.Save();
             }
             return RedirectToAction("ViewBuses");
+        }
+
+
+        [HttpGet]
+        public IActionResult ViewActivety(string id)
+        {
+            var user = _unitOfWork.Users.Get(id);
+            var logs = _unitOfWork.Logs.Find(p => p.EmploeeId == id).ToList();
+            var ticketHistories = _unitOfWork.TicketHistories.Find(p => p.EmploeeId == id).ToList();
+
+            var sailedTickets = new List<SailedTicket>();
+            foreach (var item in ticketHistories)
+            {
+                var ticket = _unitOfWork.Tickets.Get(item.TicketId);
+                if (ticket.SaleDate.Month == DateTime.Now.Month)
+                {
+                    var sailedTicket = new SailedTicket
+                    {
+                        Id = ticket.Id,
+                        ClientId = ticket.ClientId,
+                        Category = ticket.Category,
+                        PlaceNumber = ticket.PlaceNumber,
+                        Price = ticket.Price,
+                        RouteNumber = ticket.RouteNumber,
+                        SaleDate = ticket.SaleDate
+                    };
+
+                    sailedTickets.Add(sailedTicket);
+                }
+            }
+
+            var totalHours = logs.Where(p => p.Date.Month == DateTime.Now.Month).Sum(p => Int32.Parse(p.Hours));
+            var totalTickets = sailedTickets.Count;
+
+            var actievity = new ActievityVM
+            {
+                EmploeeName = user.UserName,
+                TotalHours = totalHours,
+                TotalTickets = totalTickets,
+                SailedTickets = sailedTickets
+            };
+
+            return View(actievity);
         }
     }
 }
