@@ -6,11 +6,13 @@ using BusStationSystem.BLL.Constants;
 using BusStationSystem.DAL.Entities;
 using BusStationSystem.DAL.Interfaces;
 using BusStationSystem.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusStationSystem.Controllers
 {
+    [Authorize(Roles = Roles.director)]
     public class DirectorCabinetController : Controller
     {
         private readonly UserManager<User> _userManager;
