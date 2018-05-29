@@ -21,5 +21,6 @@ namespace BusStationSystem.DAL.EF
         public DbSet<Log> Logs { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<TicketHistory> TicketHistories { get; set; }
+        public DbSet<ClientProfile> Clients { get; set; }
     }
 }

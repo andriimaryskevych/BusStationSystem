@@ -13,6 +13,7 @@ namespace BusStationSystem.DAL.Interfaces
         IRepository<Log> Logs { get; }
         IRepository<TicketHistory> TicketHistories { get; }
         IRepository<Tickets> Tickets { get; }
+        IRepository<ClientProfile> Clients { get; }
 
         IRepository<User> Users { get; }
 

@@ -8,6 +8,6 @@ namespace BusStationSystem.ViewModels
     public class TicketVM
     {
         public string RouteNumber { get; set; }
-        public int ClientID { get; set; }
+        public string ClientName { get; set; }
     }
 }

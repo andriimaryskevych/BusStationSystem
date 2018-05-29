@@ -391,5 +391,55 @@ namespace BusStationSystem.Controllers
 
             return View(actievity);
         }
+
+        public IActionResult ViewClients(string adress)
+        {
+            //var clients = _unitOfWork.Clients.GetAll();
+            var clients = _unitOfWork.Clients.Find(item => adress == null || item.Adress == adress);
+            var tickets = _unitOfWork.Tickets.GetAll();
+
+            var viewModel = new List<ClientVM>();
+
+            foreach (ClientProfile a in clients)
+            {
+                foreach (Tickets ticket in tickets)
+                {
+                    if (ticket.ClientId == a.Id)
+                    {
+                        viewModel.Add(
+                            new ClientVM
+                            {
+                                FirstName = a.FirstName,
+                                LastName = a.LastName,
+                                Adress = a.Adress,
+                                TicketId = ticket.Id
+                            }
+                        );
+                    }
+                }
+                
+            }
+
+            return View(viewModel);
+        }
+
+        public IActionResult AddClient()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddClient(ClientVM client)
+        {
+            _unitOfWork.Clients.Create(new ClientProfile()
+            {
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                Adress = client.Adress
+            });
+            _unitOfWork.Save();
+
+            return RedirectToAction("ViewClients");
+        }
     }
 }

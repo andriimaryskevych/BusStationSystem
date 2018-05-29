@@ -1,0 +1,30 @@
+﻿@model BusStationSystem.ViewModels.ClientVM
+@{
+    ViewData["Title"] = "Додати клієнта";
+}
+
+<br />
+<h2 class="text-center"><strong>Додавання нового клієнта</strong></h2>
+<br />
+<div class="container-fluid h-100">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-sm-6 col-10 offset-2 offset-sm-0">
+            @using (Html.BeginForm("AddClient", "DirectorCabinet", FormMethod.Post))
+            {
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <input asp-for="FirstName" class="form-control" placeholder="FirstName">
+                </div>
+                <div class="form-group">
+                    <input asp-for="LastName" class="form-control" placeholder="LastName">
+                </div>
+                <div class="form-group">
+                    <input asp-for="Adress" class="form-control" placeholder="Adress">
+                </div>
+                <div class="form-group col-6 offset-3">
+                    <input type="submit" value="Додати" class="btn btn-lg btn-block" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

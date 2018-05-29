@@ -18,6 +18,7 @@ namespace BusStationSystem.DAL.Repositories
         private TicketsRepository ticketsRepository;
         private LogRepository logRepository;
         private UserRepository userRepository;
+        private ClientRepository clientRepository;
 
         public UnitOfWork(ApplicationContext applicationContext, ApplicationIdentityContext applicationIdentityContext)
         {
@@ -82,6 +83,16 @@ namespace BusStationSystem.DAL.Repositories
                 if (tickethistoryRepositoty== null)
                     tickethistoryRepositoty = new TicketHistoryRepositoty(database);
                 return tickethistoryRepositoty;
+            }
+        }
+
+        public IRepository<ClientProfile> Clients
+        {
+            get
+            {
+                if (clientRepository == null)
+                    clientRepository = new ClientRepository(database);
+                return clientRepository;
             }
         }
 

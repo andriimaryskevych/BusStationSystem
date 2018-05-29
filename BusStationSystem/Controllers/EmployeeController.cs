@@ -64,28 +64,31 @@ namespace Users.Controllers
             {
                 if (_unitOfWork.Routes.Get(ticket.RouteNumber) != null)
                 {
-                    var entity = new Tickets
+                    if (_unitOfWork.Clients.GetAll().Any(item => item.FirstName == ticket.ClientName))
                     {
-                        RouteNumber = ticket.RouteNumber,
-                        ClientId = ticket.ClientID,
-                        SaleDate = System.DateTime.Now
-                    };
+                        var entity = new Tickets
+                        {
+                            RouteNumber = ticket.RouteNumber,
+                            ClientId = _unitOfWork.Clients.Find(item => item.FirstName == ticket.ClientName).FirstOrDefault().Id,
+                            SaleDate = System.DateTime.Now
+                        };
 
-                    _unitOfWork.Tickets.Create(entity);
-                    _unitOfWork.Save();
+                        _unitOfWork.Tickets.Create(entity);
+                        _unitOfWork.Save();
 
-                    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                        var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                    var history = new TicketHistory
-                    {
-                        TicketId = entity.Id,
-                        EmploeeId = currentUser.Id
-                    };
+                        var history = new TicketHistory
+                        {
+                            TicketId = entity.Id,
+                            EmploeeId = currentUser.Id
+                        };
 
-                    _unitOfWork.TicketHistories.Create(history);
-                    _unitOfWork.Save();
-                    
-                    return RedirectToAction("ViewTickets");
+                        _unitOfWork.TicketHistories.Create(history);
+                        _unitOfWork.Save();
+
+                        return RedirectToAction("ViewTickets");
+                    }
                 }
             }
             return View(ticket);

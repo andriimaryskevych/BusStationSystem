@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BusStationSystem.DAL.Entities
+namespace BusStationSystem.ViewModels
 {
-    public class ClientProfile
+    public class ClientVM
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Adress { get; set; }
+        public string TicketId { get; set; }
     }
 }
