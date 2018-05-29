@@ -26,6 +26,8 @@ namespace BusStationSystem.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        public IActionResult Index() => View("Index", "Directors worksplace");
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -42,6 +44,10 @@ namespace BusStationSystem.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var currentUser = await _userManager.FindByNameAsync(user.UserName);
+
+                    var roleresult = await _userManager.AddToRoleAsync(currentUser, "employee");
+
                     return View();
                 }
                 else
@@ -52,7 +58,7 @@ namespace BusStationSystem.Controllers
                     }
                 }
             }
-            return View(model);
+            return RedirectToAction("ViewPersonal");
         }
 
         public async Task<IActionResult> ViewPersonal()
@@ -161,17 +167,25 @@ namespace BusStationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = new Bus
+                if (_unitOfWork.Buses.Get(model.BusNumber) == null)
                 {
-                    BusNumber = model.BusNumber,
-                    Type = model.Type,
-                    PlaceCount = model.PlaceCount
-                };
+                    var entity = new Bus
+                    {
+                        BusNumber = model.BusNumber,
+                        Type = model.Type,
+                        PlaceCount = model.PlaceCount
+                    };
 
-                _unitOfWork.Buses.Create(entity);
-                _unitOfWork.Save();
+                    _unitOfWork.Buses.Create(entity);
+                    _unitOfWork.Save();
 
-                return RedirectToAction("ViewBuses");
+                    return RedirectToAction("ViewBuses");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Use unique id");
+                }              
+
             }
             return View(model);
         }
@@ -308,7 +322,7 @@ namespace BusStationSystem.Controllers
             {
                 IdentityResult result = await _userManager.DeleteAsync(user);
             }
-            return RedirectToAction("ViewUsers");
+            return RedirectToAction("ViewPersonal");
         }
 
         [HttpPost]

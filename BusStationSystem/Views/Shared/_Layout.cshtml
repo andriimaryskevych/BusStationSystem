@@ -50,20 +50,24 @@
                 </ul>
 
             }
-            else
+            @if (User.IsInRole(BusStationSystem.BLL.Constants.Roles.employee))
             {
                 <ul class=" navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">Головна</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Квитки
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Employee" asp-action="ViewTickets">Перегляд</a>
+                        </div>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" asp-controller="" asp-action="">1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="" asp-action="">2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="" asp-action="">3</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Маршути
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Employee" asp-action="ViewRoutes">Перегляд</a>
+                        </div>
                     </li>
                 </ul>
             }
@@ -80,7 +84,7 @@
     </div>
     <footer class="bg-dark fixed-bottom p-1 text-center">
         <div class="container">
-            <span class="text-white">© Global - 2018</span>
+            <span class="text-white">© EasyBus - 2018</span>
         </div>
     </footer>
 

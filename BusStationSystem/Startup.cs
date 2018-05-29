@@ -36,7 +36,10 @@ namespace BusStationSystem
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        { 
+        {
+            app.UseStatusCodePages();
+            app.UseDeveloperExceptionPage();
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
@@ -45,7 +48,7 @@ namespace BusStationSystem
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

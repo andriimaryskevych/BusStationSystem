@@ -1,0 +1,15 @@
+﻿@model IEnumerable<BusStationSystem.DAL.Entities.TicketHistory>
+
+<br />
+<h2 class="text-center"><strong>Квитки</strong></h2>
+<br />
+<table class="table">
+    <tr><th>Працівник</th><th>Квиток</th></tr>
+    @foreach (var ticket in Model)
+    {
+        <tr>
+            <td>@ticket.EmploeeId</td>
+            <td>@ticket.TicketId</td>
+        </tr>
+    }
+</table>

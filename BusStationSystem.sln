@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2015
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusStationSystem", "BusStationSystem\BusStationSystem.csproj", "{AE8E7202-30A7-470F-9DBB-B3E46A4C2FBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusStationSystem", "BusStationSystem\BusStationSystem.csproj", "{AE8E7202-30A7-470F-9DBB-B3E46A4C2FBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusStationSystem.DAL", "BusStationSystem.DAL\BusStationSystem.DAL.csproj", "{977CA477-920A-4C32-B7FD-77263343FA73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusStationSystem.DAL", "BusStationSystem.DAL\BusStationSystem.DAL.csproj", "{977CA477-920A-4C32-B7FD-77263343FA73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusStationSystem.BLL", "BusStationSystem.BLL\BusStationSystem.BLL.csproj", "{B639BAC9-B859-43FE-B6AF-897B6FA11A49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusStationSystem.BLL", "BusStationSystem.BLL\BusStationSystem.BLL.csproj", "{B639BAC9-B859-43FE-B6AF-897B6FA11A49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{C66951AC-6737-4974-8201-B63001BF6135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B639BAC9-B859-43FE-B6AF-897B6FA11A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B639BAC9-B859-43FE-B6AF-897B6FA11A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B639BAC9-B859-43FE-B6AF-897B6FA11A49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66951AC-6737-4974-8201-B63001BF6135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66951AC-6737-4974-8201-B63001BF6135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66951AC-6737-4974-8201-B63001BF6135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66951AC-6737-4974-8201-B63001BF6135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

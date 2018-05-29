@@ -21,15 +21,13 @@ namespace BusStationSystem.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-
-        public IActionResult Index()
+        
+        public async Task<IActionResult> Login()
         {
-            return View();
-        }
+            await _signInManager.SignOutAsync();
 
-        public IActionResult Login()
-        {
+            Console.WriteLine("Login request");
+
             return View();
         }
 
@@ -39,12 +37,24 @@ namespace BusStationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =
-                await _signInManager.PasswordSignInAsync(model.UserNameSurname, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserNameSurname, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
+                {                    
+                    var user = await _userManager.FindByNameAsync(model.UserNameSurname);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    if (roles.Contains("director"))
+                    {
+                        return RedirectToAction("Index", "DirectorCabinet");
+                    }
+
+                    if (roles.Contains("employee"))
+                    {
+                        return RedirectToAction("Index", "Employee");
+                    }
+
+                    return View(model);
                 }
                 else
                 {
@@ -58,7 +68,7 @@ namespace BusStationSystem.Controllers
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
