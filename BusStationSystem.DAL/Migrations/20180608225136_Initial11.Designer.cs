@@ -11,9 +11,10 @@ using System;
 namespace BusStationSystem.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180608225136_Initial11")]
+    partial class Initial11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +25,6 @@ namespace BusStationSystem.DAL.Migrations
                 {
                     b.Property<string>("BusNumber")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Buser");
 
                     b.Property<int>("PlaceCount");
 
@@ -42,8 +41,6 @@ namespace BusStationSystem.DAL.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("Date");
-
-                    b.Property<DateTime>("Dater");
 
                     b.Property<string>("EmploeeId");
 

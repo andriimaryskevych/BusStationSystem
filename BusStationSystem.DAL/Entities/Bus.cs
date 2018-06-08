@@ -9,6 +9,7 @@ namespace BusStationSystem.DAL.Entities
     {
         [Key]
         public string BusNumber { get; set; }
+        public string Buser { get; set; }
         public string Type { get; set; }
         public int PlaceCount { get; set; }
     }

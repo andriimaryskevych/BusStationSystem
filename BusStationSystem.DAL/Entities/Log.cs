@@ -8,6 +8,7 @@ namespace BusStationSystem.DAL.Entities
     {
         public int Id { get; set; }
         public string EmploeeId { get; set; }
+        public DateTime Dater { get; set; }
         public DateTime Date { get; set; }
         public string Hours { get; set; }
     }
