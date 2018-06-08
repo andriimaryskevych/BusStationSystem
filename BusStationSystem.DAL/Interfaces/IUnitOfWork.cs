@@ -8,12 +8,13 @@ namespace BusStationSystem.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Route> Routes { get; }
+        IRepository<Advice> Advices { get; }
         IRepository<Bus> Buses { get; }
-        IRepository<Log> Logs { get; }
+        IRepository<Client> Clients { get; }
+        IRepository<Route> Routes { get; }
+        IRepository<Station> Stations { get; }
+        IRepository<Ticket> Tickets { get; }
         IRepository<TicketHistory> TicketHistories { get; }
-        IRepository<Tickets> Tickets { get; }
-        IRepository<ClientProfile> Clients { get; }
 
         IRepository<User> Users { get; }
 

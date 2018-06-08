@@ -400,9 +400,9 @@ namespace BusStationSystem.Controllers
 
             var viewModel = new List<ClientVM>();
 
-            foreach (ClientProfile a in clients)
+            foreach (Client a in clients)
             {
-                foreach (Tickets ticket in tickets)
+                foreach (Ticket ticket in tickets)
                 {
                     if (ticket.ClientId == a.Id)
                     {
@@ -431,7 +431,7 @@ namespace BusStationSystem.Controllers
         [HttpPost]
         public IActionResult AddClient(ClientVM client)
         {
-            _unitOfWork.Clients.Create(new ClientProfile()
+            _unitOfWork.Clients.Create(new Client()
             {
                 FirstName = client.FirstName,
                 LastName = client.LastName,

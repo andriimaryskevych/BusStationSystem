@@ -6,17 +6,13 @@ using System.Text;
 
 namespace BusStationSystem.DAL.Entities
 {
-    public class TicketHistory
+    public class Station
     {
         [Key]
         public int Id { get; set; }
 
-        public int TicketId { get; set; }
-        [ForeignKey("TicketId")]
-        public Ticket Ticket { get; set; }
-
-        public int EmploeeId { get; set; }
-        [ForeignKey("EmploeeId")]
-        public User Emploee { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string StationName { get; set; }
     }
 }

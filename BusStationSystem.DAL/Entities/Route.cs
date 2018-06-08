@@ -9,15 +9,22 @@ namespace BusStationSystem.DAL.Entities
     public class Route
     {
         [Key]
-        public string RouteNumber { get; set; }
-        public string RouteType { get; set; }
-        public string Destination { get; set; }
-        public DateTime DetartureDate { get; set; }
-        public DateTime ArrivalDate { get; set; }
-        public string OccupiedPlaceCount { get; set; }
-        public string BusId { get; set; }
+        public int Id { get; set; }
 
+        public int DepartureId { get; set; }
+        [ForeignKey("DepartureId")]
+        public Station Departure { get; set; }
+        public DateTime DetartureDate { get; set; }
+
+        public int ArrivalId { get; set; }
+        [ForeignKey("ArrivalId")]
+        public Station Arrival { get; set; }        
+        public DateTime ArrivalDate { get; set; }
+        
+        public int BusId { get; set; }
         [ForeignKey("BusId")]
         public Bus Bus { get; set; }
+
+        public int Price { get; set; }
     }
 }

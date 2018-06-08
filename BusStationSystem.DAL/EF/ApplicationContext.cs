@@ -16,11 +16,12 @@ namespace BusStationSystem.DAL.EF
             
         }
 
+        public DbSet<Advice> Advices { get; set; }
         public DbSet<Bus> Buses { get; set; }
-        public DbSet<Tickets> Tickets { get; set; }
-        public DbSet<Log> Logs { get; set; }
+        public DbSet<Client> Clients { get; set; }
         public DbSet<Route> Routes { get; set; }
+        public DbSet<Station> Stations { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketHistory> TicketHistories { get; set; }
-        public DbSet<ClientProfile> Clients { get; set; }
     }
 }

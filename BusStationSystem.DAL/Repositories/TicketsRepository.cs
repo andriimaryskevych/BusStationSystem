@@ -9,7 +9,7 @@ using System.Text;
 
 namespace BusStationSystem.DAL.Repositories
 {
-    public class TicketsRepository : IRepository<Tickets>
+    public class TicketsRepository : IRepository<Ticket>
     {
         private ApplicationContext database;
 
@@ -18,40 +18,40 @@ namespace BusStationSystem.DAL.Repositories
             this.database = conBus;
         }
 
-        public IEnumerable<Tickets> GetAll()
+        public IEnumerable<Ticket> GetAll()
         {
             return database.Tickets;
         }
 
-        public Tickets Get(string id)
+        public Ticket Get(string id)
         {
             return database.Tickets.Find(id);
         }
 
 
-        public IEnumerable<Tickets> Find(Func<Tickets, Boolean> predicate)
+        public IEnumerable<Ticket> Find(Func<Ticket, Boolean> predicate)
         {
             return database.Tickets.Where(predicate);
         }
 
-        public void Create(Tickets item)
+        public void Create(Ticket item)
         {
             database.Tickets.Add(item);
         }
 
-        public void Update(Tickets item)
+        public void Update(Ticket item)
         {
             database.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(Tickets item)
+        public void Delete(Ticket item)
         {
             database.Tickets.Remove(item);
         }
 
         public void Delete(string id)
         {
-            Tickets item = database.Tickets.Find(id);
+            Ticket item = database.Tickets.Find(id);
             if (item != null)
                 database.Tickets.Remove(item);
         }

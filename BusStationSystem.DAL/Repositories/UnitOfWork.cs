@@ -12,13 +12,15 @@ namespace BusStationSystem.DAL.Repositories
         private ApplicationContext database;
         private ApplicationIdentityContext identityDatabase;
 
-        private RouteRepository routeRepository;
+        private AdviceRepository adviceRepository;
         private BusRepository busRepository;
-        private TicketHistoryRepositoty tickethistoryRepositoty;
-        private TicketsRepository ticketsRepository;
-        private LogRepository logRepository;
-        private UserRepository userRepository;
         private ClientRepository clientRepository;
+        private RouteRepository routeRepository;
+        private StationRepository stationRepository;
+        private TicketsRepository ticketsRepository;
+        private TicketHistoryRepositoty tickethistoryRepositoty;
+
+        private UserRepository userRepository;
 
         public UnitOfWork(ApplicationContext applicationContext, ApplicationIdentityContext applicationIdentityContext)
         {
@@ -26,26 +28,15 @@ namespace BusStationSystem.DAL.Repositories
             identityDatabase = applicationIdentityContext;
         }
 
-        public IRepository<User> Users
+        public IRepository<Advice> Advices
         {
             get
             {
-                if (userRepository == null)
-                    userRepository = new UserRepository(identityDatabase);
-                return userRepository;
+                if (adviceRepository == null)
+                    adviceRepository = new AdviceRepository(database);
+                return adviceRepository;
             }
         }
-
-        public IRepository<Route> Routes
-        {
-            get
-            {
-                if (routeRepository == null)
-                    routeRepository = new RouteRepository(database);
-                return routeRepository;
-            }
-        }
-
         public IRepository<Bus> Buses
         {
             get
@@ -55,18 +46,34 @@ namespace BusStationSystem.DAL.Repositories
                 return busRepository;
             }
         }
-
-        public IRepository<Log> Logs
+        public IRepository<Client> Clients
         {
             get
             {
-                if (logRepository == null)
-                    logRepository = new LogRepository(database);
-                return logRepository;
+                if (clientRepository == null)
+                    clientRepository = new ClientRepository(database);
+                return clientRepository;
             }
         }
-
-        public IRepository<Tickets> Tickets
+        public IRepository<Route> Routes
+        {
+            get
+            {
+                if (routeRepository == null)
+                    routeRepository = new RouteRepository(database);
+                return routeRepository;
+            }
+        }
+        public IRepository<Station> Stations
+        {
+            get
+            {
+                if (stationRepository == null)
+                    stationRepository = new StationRepository(database);
+                return stationRepository;
+            }
+        }
+        public IRepository<Ticket> Tickets
         {
             get
             {
@@ -75,7 +82,6 @@ namespace BusStationSystem.DAL.Repositories
                 return ticketsRepository;
             }
         }
-
         public IRepository<TicketHistory> TicketHistories
         {
             get
@@ -86,13 +92,13 @@ namespace BusStationSystem.DAL.Repositories
             }
         }
 
-        public IRepository<ClientProfile> Clients
+        public IRepository<User> Users
         {
             get
             {
-                if (clientRepository == null)
-                    clientRepository = new ClientRepository(database);
-                return clientRepository;
+                if (userRepository == null)
+                    userRepository = new UserRepository(identityDatabase);
+                return userRepository;
             }
         }
 

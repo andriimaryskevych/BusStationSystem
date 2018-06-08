@@ -66,7 +66,7 @@ namespace Users.Controllers
                 {
                     if (_unitOfWork.Clients.GetAll().Any(item => item.FirstName == ticket.ClientName))
                     {
-                        var entity = new Tickets
+                        var entity = new Ticket
                         {
                             RouteNumber = ticket.RouteNumber,
                             ClientId = _unitOfWork.Clients.Find(item => item.FirstName == ticket.ClientName).FirstOrDefault().Id,
