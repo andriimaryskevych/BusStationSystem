@@ -22,7 +22,7 @@ namespace BusStationSystem.DAL.Repositories
             return database.TicketHistories;
         }
 
-        public TicketHistory Get(string id)
+        public TicketHistory Get(int id)
         {
             return database.TicketHistories.Find(id);
         }
@@ -48,7 +48,7 @@ namespace BusStationSystem.DAL.Repositories
             database.TicketHistories.Remove(item);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             TicketHistory item = database.TicketHistories.Find(id);
             if (item != null)

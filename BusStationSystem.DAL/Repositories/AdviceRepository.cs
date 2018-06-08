@@ -23,7 +23,7 @@ namespace BusStationSystem.DAL.Repositories
             return database.Advices;
         }
 
-        public Advice Get(string id)
+        public Advice Get(int id)
         {
             return database.Advices.Find(id);
         }
@@ -49,7 +49,7 @@ namespace BusStationSystem.DAL.Repositories
             database.Advices.Remove(item);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             Advice item = database.Advices.Find(id);
             if (item != null)

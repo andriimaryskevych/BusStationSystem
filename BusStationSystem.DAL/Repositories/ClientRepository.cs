@@ -23,7 +23,7 @@ namespace BusStationSystem.DAL.Repositories
             return database.Clients;
         }
 
-        public Client Get(string id)
+        public Client Get(int id)
         {
             return database.Clients.Find(id);
         }
@@ -49,7 +49,7 @@ namespace BusStationSystem.DAL.Repositories
             database.Clients.Remove(item);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             Client item = database.Clients.Find(id);
             if (item != null)

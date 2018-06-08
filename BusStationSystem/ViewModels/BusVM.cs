@@ -7,9 +7,8 @@ namespace BusStationSystem.ViewModels
 {
     public class BusVM
     {
-        public string RouteId { get; set; }
-        public string BusNumber { get; set; }
-        public string Type { get; set; }
-        public int PlaceCount { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public DateTime ProductionYear { get; set; }
     }
 }

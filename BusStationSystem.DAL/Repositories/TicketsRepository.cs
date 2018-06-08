@@ -23,7 +23,7 @@ namespace BusStationSystem.DAL.Repositories
             return database.Tickets;
         }
 
-        public Ticket Get(string id)
+        public Ticket Get(int id)
         {
             return database.Tickets.Find(id);
         }
@@ -49,7 +49,7 @@ namespace BusStationSystem.DAL.Repositories
             database.Tickets.Remove(item);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             Ticket item = database.Tickets.Find(id);
             if (item != null)

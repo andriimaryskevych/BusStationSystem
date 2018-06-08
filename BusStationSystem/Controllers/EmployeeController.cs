@@ -24,83 +24,66 @@ namespace Users.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ViewResult Index() =>
-            View("Index", "Employee workspace");
+        //public ViewResult Index() =>
+        //    View("Index", "Employee workspace");
 
-        public IActionResult ViewRoutes()
-        {
-            var routes = _unitOfWork.Routes.GetAll();
-            var viewRoutes = new List<RoutesVM>();
+        //public IActionResult ViewRoutes()
+        //{
+        //    var routes = _unitOfWork.Routes.GetAll();
 
-            foreach (var item in routes)
-            {
-                var bus = _unitOfWork.Buses.Get(item.BusId);
-                var viewRoute = new RoutesVM
-                {
-                    RouteNumber = item.RouteNumber,
-                    Destination = item.Destination,
-                    BusNumber = item.BusId,
-                    BusType = bus.Type,
-                    PlaceCount = bus.PlaceCount,
-                    OccupiedPlaceCount = item.OccupiedPlaceCount
-                };
+        //    return View(routes);
+        //}
 
-                viewRoutes.Add(viewRoute);
-            }
+        //public IActionResult SellTicket(string id)
+        //{
+        //    TicketVM model = new TicketVM() { RouteNumber = id };
+        //    return View(model);
+        //}
 
-            return View(viewRoutes);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> SellTicket(Ticket ticket)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (_unitOfWork.Routes.Get(ticket.RouteId) != null)
+        //        {
+        //            if (_unitOfWork.Clients.GetAll().Any(item => item.Id == ticket.ClientId))
+        //            {
+        //                var entity = new Ticket
+        //                {
+        //                    Route = ticket.Route,
+        //                    ClientId = _unitOfWork.Clients.Find(item => item.FirstName == ticket.ClientName).FirstOrDefault().Id,
+        //                    SaleDate = System.DateTime.Now
+        //                };
 
-        public IActionResult SellTicket(string id)
-        {
-            TicketVM model = new TicketVM() { RouteNumber = id };
-            return View(model);
-        }
+        //                _unitOfWork.Tickets.Create(entity);
+        //                _unitOfWork.Save();
 
-        [HttpPost]
-        public async Task<IActionResult> SellTicket(TicketVM ticket)
-        {
-            if (ModelState.IsValid)
-            {
-                if (_unitOfWork.Routes.Get(ticket.RouteNumber) != null)
-                {
-                    if (_unitOfWork.Clients.GetAll().Any(item => item.FirstName == ticket.ClientName))
-                    {
-                        var entity = new Ticket
-                        {
-                            RouteNumber = ticket.RouteNumber,
-                            ClientId = _unitOfWork.Clients.Find(item => item.FirstName == ticket.ClientName).FirstOrDefault().Id,
-                            SaleDate = System.DateTime.Now
-                        };
+        //                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
-                        _unitOfWork.Tickets.Create(entity);
-                        _unitOfWork.Save();
+        //                var history = new TicketHistory
+        //                {
+        //                    TicketId = entity.Id,
+        //                    EmploeeId = currentUser.Id
+        //                };
 
-                        var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+        //                _unitOfWork.TicketHistories.Create(history);
+        //                _unitOfWork.Save();
 
-                        var history = new TicketHistory
-                        {
-                            TicketId = entity.Id,
-                            EmploeeId = currentUser.Id
-                        };
+        //                return RedirectToAction("ViewTickets");
+        //            }
+        //        }
+        //    }
+        //    return View(ticket);
+        //}
 
-                        _unitOfWork.TicketHistories.Create(history);
-                        _unitOfWork.Save();
+        //public async Task<IActionResult> ViewTickets()
+        //{
+        //    var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+        //    var tickets = _unitOfWork.TicketHistories.GetAll();
+        //    var ticketsSoldByCurrentEmployee = tickets.Where(ticket => ticket.EmploeeId == currentUser.Id);
 
-                        return RedirectToAction("ViewTickets");
-                    }
-                }
-            }
-            return View(ticket);
-        }
-
-        public async Task<IActionResult> ViewTickets()
-        {
-            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            var tickets = _unitOfWork.TicketHistories.GetAll();
-            var ticketsSoldByCurrentEmployee = tickets.Where(ticket => ticket.EmploeeId == currentUser.Id);
-
-            return View(ticketsSoldByCurrentEmployee);
-        }
+        //    return View(ticketsSoldByCurrentEmployee);
+        //}
     }
 }

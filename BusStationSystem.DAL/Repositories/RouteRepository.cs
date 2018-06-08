@@ -23,7 +23,7 @@ namespace BusStationSystem.DAL.Repositories
             return database.Routes;
         }
 
-        public Route Get(string id)
+        public Route Get(int id)
         {
             return database.Routes.Find(id);
         }
@@ -49,7 +49,7 @@ namespace BusStationSystem.DAL.Repositories
             database.Routes.Remove(item);
         }
 
-        public void Delete(string id)
+        public void Delete(int id)
         {
             Route item = database.Routes.Find(id);
             if (item != null)
