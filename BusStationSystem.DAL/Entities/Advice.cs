@@ -13,8 +13,7 @@ namespace BusStationSystem.DAL.Entities
 
         public string AdviceText { get; set; }
 
-        public int EmploeeId { get; set; }
-        [ForeignKey("EmploeeId")]
-        public User Employee { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }

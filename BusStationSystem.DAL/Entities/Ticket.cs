@@ -11,14 +11,12 @@ namespace BusStationSystem.DAL.Entities
         [Key]
         public int Id { get; set; }
 
-        public int RouteId { get; set; }
-        [ForeignKey("RouteId")]
-        public Route Route { get; set; }
+        public int RouteiD { get; set; }
+        public virtual Route Route { get; set; }
 
         public int ClientId { get; set; }
-        [ForeignKey("ClientId")]
-        public Client Client { get; set; }
-        
+        public virtual Client Client { get; set; }
+
         public DateTime SaleDate { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace BusStationSystem.BLL.Infrastructure
         {
             string directorName = "director";
             string password = "director131";
+
             if (await roleManager.FindByNameAsync(Roles.director) == null)
             {
                 await roleManager.CreateAsync(new IdentityRole(Roles.director));
@@ -24,6 +25,7 @@ namespace BusStationSystem.BLL.Infrastructure
             {
                 await roleManager.CreateAsync(new IdentityRole(Roles.employee));
             }
+
             if (await userManager.FindByNameAsync(directorName) == null)
             {
                 var admin = new User { UserName = directorName };

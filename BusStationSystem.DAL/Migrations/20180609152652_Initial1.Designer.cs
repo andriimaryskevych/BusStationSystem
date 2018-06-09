@@ -11,9 +11,10 @@ using System;
 namespace BusStationSystem.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180609152652_Initial1")]
+    partial class Initial1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,17 +118,13 @@ namespace BusStationSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ClientId");
+                    b.Property<int>("Client");
 
-                    b.Property<int>("RouteiD");
+                    b.Property<int>("Route");
 
                     b.Property<DateTime>("SaleDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("RouteiD");
 
                     b.ToTable("Tickets");
                 });
@@ -137,15 +134,11 @@ namespace BusStationSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("TicketId");
+                    b.Property<string>("Employee");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("Ticket");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TicketHistories");
                 });
@@ -211,32 +204,6 @@ namespace BusStationSystem.DAL.Migrations
                     b.HasOne("BusStationSystem.DAL.Entities.Station", "Departure")
                         .WithMany()
                         .HasForeignKey("DepartureId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("BusStationSystem.DAL.Entities.Ticket", b =>
-                {
-                    b.HasOne("BusStationSystem.DAL.Entities.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("BusStationSystem.DAL.Entities.Route", "Route")
-                        .WithMany()
-                        .HasForeignKey("RouteiD")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("BusStationSystem.DAL.Entities.TicketHistory", b =>
-                {
-                    b.HasOne("BusStationSystem.DAL.Entities.Ticket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("BusStationSystem.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

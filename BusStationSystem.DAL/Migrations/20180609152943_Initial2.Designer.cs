@@ -11,9 +11,10 @@ using System;
 namespace BusStationSystem.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180609152943_Initial2")]
+    partial class Initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,15 +138,11 @@ namespace BusStationSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("TicketId");
+                    b.Property<string>("Employee");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("Ticket");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TicketHistories");
                 });
@@ -224,19 +221,6 @@ namespace BusStationSystem.DAL.Migrations
                     b.HasOne("BusStationSystem.DAL.Entities.Route", "Route")
                         .WithMany()
                         .HasForeignKey("RouteiD")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("BusStationSystem.DAL.Entities.TicketHistory", b =>
-                {
-                    b.HasOne("BusStationSystem.DAL.Entities.Ticket", "Ticket")
-                        .WithMany()
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("BusStationSystem.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

@@ -12,11 +12,9 @@ namespace BusStationSystem.DAL.Entities
         public int Id { get; set; }
 
         public int TicketId { get; set; }
-        [ForeignKey("TicketId")]
-        public Ticket Ticket { get; set; }
+        public virtual Ticket Ticket { get; set; }
 
-        public int EmploeeId { get; set; }
-        [ForeignKey("EmploeeId")]
-        public User Emploee { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }
