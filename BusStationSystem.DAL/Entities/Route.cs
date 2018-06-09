@@ -23,5 +23,7 @@ namespace BusStationSystem.DAL.Entities
         public virtual Bus Bus { get; set; }
 
         public int Price { get; set; }
+
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

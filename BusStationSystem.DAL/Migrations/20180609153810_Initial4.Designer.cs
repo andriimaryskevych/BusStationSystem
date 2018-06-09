@@ -11,9 +11,10 @@ using System;
 namespace BusStationSystem.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20180609153810_Initial4")]
+    partial class Initial4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -199,7 +200,7 @@ namespace BusStationSystem.DAL.Migrations
             modelBuilder.Entity("BusStationSystem.DAL.Entities.Route", b =>
                 {
                     b.HasOne("BusStationSystem.DAL.Entities.Station", "Arrival")
-                        .WithMany("Arrivals")
+                        .WithMany()
                         .HasForeignKey("ArrivalId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -209,7 +210,7 @@ namespace BusStationSystem.DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BusStationSystem.DAL.Entities.Station", "Departure")
-                        .WithMany("Departures")
+                        .WithMany()
                         .HasForeignKey("DepartureId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

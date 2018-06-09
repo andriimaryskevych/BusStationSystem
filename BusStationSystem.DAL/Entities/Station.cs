@@ -14,5 +14,8 @@ namespace BusStationSystem.DAL.Entities
         public string Country { get; set; }
         public string City { get; set; }
         public string StationName { get; set; }
+
+        public virtual ICollection<Route> Departures { get; set; }
+        public virtual ICollection<Route> Arrivals { get; set; }
     }
 }

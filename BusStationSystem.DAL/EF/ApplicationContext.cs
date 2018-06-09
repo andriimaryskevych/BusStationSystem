@@ -60,6 +60,16 @@ namespace BusStationSystem.DAL.EF
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            modelbuilder.Entity<Station>()
+                .HasMany(c => c.Departures)
+                .WithOne(e => e.Departure)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelbuilder.Entity<Station>()
+                .HasMany(c => c.Arrivals)
+                .WithOne(e => e.Arrival)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelbuilder);
         }
     }
