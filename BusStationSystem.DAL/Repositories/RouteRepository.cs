@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace BusStationSystem.DAL.Repositories
@@ -18,12 +19,14 @@ namespace BusStationSystem.DAL.Repositories
             this.database = conRoute;
         }
 
-        public IEnumerable<Route> GetAll()
+        public IEnumerable<Route> GetAll(Expression<Func<Route, object>>[] paths = null)
         {
-            return database.Routes
-                .Include(item => item.Bus)
-                .Include(item => item.Departure)
-                .Include(item => item.Arrival);
+            var result = database.Routes.AsQueryable();
+            foreach (var path in paths)
+            {
+                result = result.Include(path);
+            }
+            return result;
         }
 
         public Route Get(int id)

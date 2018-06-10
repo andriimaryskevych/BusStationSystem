@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BusStationSystem.Controllers
 {
@@ -194,7 +195,13 @@ namespace BusStationSystem.Controllers
 
         public IActionResult ViewRoutes()
         {
-            var routes = _unitOfWork.Routes.GetAll();
+            Expression<Func<Route, object>>[] expr = new Expression<Func<Route, object>>[] {
+                a => a.Bus,
+                a => a.Departure,
+                a => a.Arrival
+            };
+
+            var routes = _unitOfWork.Routes.GetAll(expr);
 
             Console.WriteLine(routes.FirstOrDefault().Bus.Make);
 
