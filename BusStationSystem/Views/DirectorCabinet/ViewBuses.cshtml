@@ -6,7 +6,13 @@
 <br />
 <h2 class="text-center"><strong>Усі автобуси</strong></h2>
 <br />
-<table class="table">
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+    </div>
+}
+<table class="table">    
     <tr><th>Make</th><th>Model</th><th>Production Year</th></tr>
     @foreach (var bus in Model)
     {

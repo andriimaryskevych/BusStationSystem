@@ -76,6 +76,10 @@ namespace BusStationSystem.Controllers
         {
             var buses = _unitOfWork.Buses.GetAll();
 
+            if (TempData["message"] != null)
+            {
+                ViewBag.Message = TempData["message"];
+            }
             return View(buses);
         }
 
@@ -125,8 +129,15 @@ namespace BusStationSystem.Controllers
             Bus bus = _unitOfWork.Buses.Get(id);
             if (bus != null)
             {
-                _unitOfWork.Buses.Delete(bus);
-                _unitOfWork.Save();
+                try
+                {
+                    _unitOfWork.Buses.Delete(bus);
+                    _unitOfWork.Save();
+                }
+                catch (Exception)
+                {
+                    TempData["message"] = "Operation not possible, bus is in use";
+                }
             }
             return RedirectToAction("ViewBuses");
         }
@@ -331,7 +342,15 @@ namespace BusStationSystem.Controllers
             Route route = _unitOfWork.Routes.Get(id);
             if (route != null)
             {
-                _unitOfWork.Routes.Delete(route);
+                try
+                {
+                    _unitOfWork.Routes.Delete(route);
+                }
+                catch (Exception)
+                {
+                    ViewBag.Message = "Operation not possible, bus is in use";
+                    return Redirect(ControllerContext.HttpContext.Request.Headers["Referer"].ToString());
+                }
                 _unitOfWork.Save();
             }
             return RedirectToAction("ViewRoutes");
