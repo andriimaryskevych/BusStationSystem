@@ -231,7 +231,7 @@ namespace BusStationSystem.Controllers
                                 Text = String.Format("{0}, {1}, {2}", bus.Make, bus.Model, bus.ProductionYear)
                             };
 
-            return View("AddRoute", new AddRouteVM {
+            return View("AddRoute", new RouteVM {
                 Departures = departures,
                 Arrivals = arrivals,
                 Buses = buses
@@ -239,7 +239,7 @@ namespace BusStationSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRoute(AddRouteVM model)
+        public IActionResult AddRoute(RouteVM model)
         {
             if (ModelState.IsValid)
             {
@@ -268,15 +268,57 @@ namespace BusStationSystem.Controllers
                 return NotFound();
             }
 
-            return View(route);
+            var departures = from departure in _unitOfWork.Stations.GetAll()
+                             select new SelectListItem
+                             {
+                                 Value = departure.Id.ToString(),
+                                 Text = String.Format("{0}, {1}, {2}", departure.Country, departure.City, departure.StationName)
+                             };
+
+            var arrivals = from arrival in _unitOfWork.Stations.GetAll()
+                           select new SelectListItem
+                           {
+                               Value = arrival.Id.ToString(),
+                               Text = String.Format("{0}, {1}, {2}", arrival.Country, arrival.City, arrival.StationName)
+                           };
+
+            var buses = from bus in _unitOfWork.Buses.GetAll()
+                        select new SelectListItem
+                        {
+                            Value = bus.Id.ToString(),
+                            Text = String.Format("{0}, {1}, {2}", bus.Make, bus.Model, bus.ProductionYear)
+                        };
+
+            return View("EditRoute", new RouteVM
+            {
+                Id = route.Id,
+                Departure = route.DepartureId.ToString(),
+                Arrival = route.ArrivalId.ToString(),
+                DetartureDate = route.DetartureDate,
+                ArrivalDate  =route.ArrivalDate,
+                Price = route.Price,
+                Departures = departures,
+                Arrivals = arrivals,
+                Buses = buses
+            });
         }
 
         [HttpPost]
-        public IActionResult EditRoute(Route model)
+        public IActionResult EditRoute(RouteVM model)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Routes.Update(model);
+                _unitOfWork.Routes.Update(new Route
+                {
+                    Id = model.Id,
+                    Price = model.Price,
+                    DepartureId = int.Parse(model.Departure),
+                    DetartureDate = model.DetartureDate,
+                    ArrivalId = int.Parse(model.Arrival),
+                    ArrivalDate = model.ArrivalDate,
+                    BusId = int.Parse(model.Bus)
+                });
+                _unitOfWork.Save();
 
                 return RedirectToAction("ViewRoutes", "DirectorCabinet");
             }

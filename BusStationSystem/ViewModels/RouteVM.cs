@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BusStationSystem.ViewModels
 {
-    public class AddRouteVM
+    public class RouteVM
     {
+        public int Id { get; set; }
         public int Price { get; set; }
 
         public IEnumerable<SelectListItem> Departures { get; set; }

@@ -1,36 +1,40 @@
-﻿@model BusStationSystem.ViewModels.RoutesVM;
+﻿@model RouteVM;
 @{
     ViewData["Title"] = "Редагування";
 }
 
 <br />
-<h2 class="text-center"><strong>Редагування даних маршуту @Model.RouteNumber</strong></h2>
+<h2 class="text-center"><strong>Редагування даних маршуту</strong></h2>
 <br />
 <div class="container-fluid h-100">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-sm-3 col-10 offset-2 offset-sm-0">
-            <form asp-action="EditUser" asp-controller="AdminCabinet">
-                <div asp-validation-summary="All" class="text-danger"></div>
+            @using (Html.BeginForm("EditRoute", "DirectorCabinet", FormMethod.Post))
+            {
+                <div asp-validation-summary="All"></div>
+                <input asp-for="Id" hidden>
                 <div class="form-group">
-                    <label asp-for="BusNumber" class="control-label">Номер автобуса</label>
-                    <input asp-for="BusNumber" class="form-control" />
+                    <input asp-for="Price" class="form-control" placeholder="Price">
                 </div>
                 <div class="form-group">
-                    <label asp-for="BusType" class="control-label">Тип</label>
-                    <input asp-for="BusType" class="form-control" />
+                    <select asp-for="Departure" asp-items="@Model.Departures" class="form-control"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PlaceCount" class="control-label">К-сть місць</label>
-                    <input asp-for="PlaceCount" class="form-control" />
+                    <input asp-for="DetartureDate" class="form-control" placeholder="ProductionYear">
                 </div>
                 <div class="form-group">
-                    <label asp-for="RouteNumber" class="control-label">Id маршуту</label>
-                    <input asp-for="RouteNumber" class="form-control" />
+                    <select asp-for="Arrival" asp-items="@Model.Arrivals" class="form-control"></select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Зберегти" class="btn btn-lg btn-block" />
+                    <input asp-for="ArrivalDate" class="form-control" placeholder="ProductionYear">
                 </div>
-            </form>
+                <div class="form-group">
+                    <select asp-for="Bus" asp-items="@Model.Buses" class="form-control"></select>
+                </div>
+                <div class="form-group col-6 offset-3">
+                    <input type="submit" value="Додати" class="btn btn-lg btn-block" />
+                </div>
+            }
         </div>
     </div>
 </div>

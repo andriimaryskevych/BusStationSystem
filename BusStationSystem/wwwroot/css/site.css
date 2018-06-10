@@ -65,6 +65,10 @@ input.input-validation-error {
     display: none;
 }
 
+.card {
+    margin-bottom: 20px;
+}
+
 .price {
     float: right;
     background-color: aqua;
