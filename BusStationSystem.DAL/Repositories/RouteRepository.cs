@@ -20,7 +20,10 @@ namespace BusStationSystem.DAL.Repositories
 
         public IEnumerable<Route> GetAll()
         {
-            return database.Routes;
+            return database.Routes
+                .Include(item => item.Bus)
+                .Include(item => item.Departure)
+                .Include(item => item.Arrival);
         }
 
         public Route Get(int id)

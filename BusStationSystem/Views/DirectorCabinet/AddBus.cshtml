@@ -1,4 +1,4 @@
-﻿@model BusStationSystem.ViewModels.BusVM
+﻿@model Bus
 @{
     ViewData["Title"] = "Додати автобус";
 }
@@ -13,13 +13,13 @@
             {
                 <div asp-validation-summary="All"></div>
                 <div class="form-group">
-                    <input asp-for="BusNumber" class="form-control" placeholder="BusNumber">
+                    <input asp-for="Make" class="form-control" placeholder="Make">
                 </div>
                 <div class="form-group">
-                    <input asp-for="Type" class="form-control" placeholder="BusType">
+                    <input asp-for="Model" class="form-control" placeholder="Model">
                 </div>
                 <div class="form-group">
-                    <input asp-for="PlaceCount" class="form-control" placeholder="PlaceCount">
+                    <input asp-for="ProductionYear" class="form-control" placeholder="ProductionYear">
                 </div>
                 <div class="form-group col-6 offset-3">
                     <input type="submit" value="Додати" class="btn btn-lg btn-block" />

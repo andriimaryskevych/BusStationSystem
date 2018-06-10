@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusStationSystem.ViewModels.ClientVM>
+﻿@model IEnumerable<Client>
 @{
     ViewData["Title"] = "Перегляд клієнтів";
 }
@@ -7,14 +7,20 @@
 <h2 class="text-center"><strong>Дані про клієнта</strong></h2>
 <br />
 <table class="table">
-    <tr><th>Ім'я</th><th>Прізвище</th><th>Адреса</th><th>ID ticket</th></tr>
+    <tr><th>Ім'я</th><th>Прізвище</th><th>Адреса</th></tr>
     @foreach (var client in Model)
     {
         <tr>
             <td>@client.FirstName</td>
             <td>@client.LastName</td>
             <td>@client.Adress</td>
-            <td>@client.TicketId</td>
+            <td>
+                <form asp-action="DeleteClient" asp-route-id="@client.Id" method="post" style="text-align: center">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Видалити
+                    </button>
+                </form>
+            </td>
         </tr>
     }
 </table>

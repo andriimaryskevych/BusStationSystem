@@ -14,4 +14,8 @@
     <ProjectReference Include="..\BusStationSystem.DAL\BusStationSystem.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Station>
+@{
+    ViewData["Title"] = "Перегляд станцій";
+}
+
+<br />
+<h2 class="text-center"><strong>Усі станції</strong></h2>
+<br />
+<table class="table">
+    <tr><th>Країна</th><th>Місто</th><th>Місце зупинки</th></tr>
+    @foreach (var station in Model)
+    {
+        <tr>
+            <td>@station.Country</td>
+            <td>@station.City</td>
+            <td>@station.StationName</td>
+
+            <td>
+                <form asp-action="DeleteStation" asp-route-id="@station.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

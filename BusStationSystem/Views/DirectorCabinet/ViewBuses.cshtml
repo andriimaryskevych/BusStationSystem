@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusStationSystem.ViewModels.BusVM>
+﻿@model IEnumerable<Bus>
 @{
     ViewData["Title"] = "Перегляд автобусів";
 }
@@ -7,20 +7,19 @@
 <h2 class="text-center"><strong>Усі автобуси</strong></h2>
 <br />
 <table class="table">
-    <tr><th>Id маршуту</th><th>Номерний знак</th><th>Тип автобуса</th><th>К-сть місць</th><th></th><th></th></tr>
+    <tr><th>Make</th><th>Model</th><th>Production Year</th></tr>
     @foreach (var bus in Model)
     {
     <tr>
-        <td>@bus.RouteId</td>
-        <td>@bus.BusNumber</td>
-        <td>@bus.Type</td>
-        <td>@bus.PlaceCount</td>
+        <td>@bus.Make</td>
+        <td>@bus.Model</td>
+        <td>@bus.ProductionYear</td>
 
         <td>
-            <a class="btn btn-sm btn-primary" asp-action="EditBus" asp-route-id="@bus.BusNumber">Редагувати</a>
+            <a class="btn btn-sm btn-primary" asp-action="EditBus" asp-route-id="@bus.Id">Редагувати</a>
         </td>
         <td>
-            <form asp-action="DeleteBus" asp-route-id="@bus.BusNumber" method="post">
+            <form asp-action="DeleteBus" asp-route-id="@bus.Id" method="post">
                 <button type="submit" class="btn btn-sm btn-danger">
                     Видалити
                 </button>
