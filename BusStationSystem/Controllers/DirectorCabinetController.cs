@@ -13,6 +13,7 @@ using System.Collections;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using BusStationSystem.DAL.Infrastructure;
 
 namespace BusStationSystem.Controllers
 {
@@ -136,7 +137,7 @@ namespace BusStationSystem.Controllers
                 }
                 catch (Exception)
                 {
-                    TempData["message"] = "Operation not possible, bus is in use";
+                    TempData["message"] = $"Operation not possible, bus {bus.Make} {bus.Model} is in use";
                 }
             }
             return RedirectToAction("ViewBuses");
@@ -147,6 +148,10 @@ namespace BusStationSystem.Controllers
         {
             var stations = _unitOfWork.Stations.GetAll();
 
+            if (TempData["message"] != null)
+            {
+                ViewBag.Message = TempData["message"];
+            }
             return View(stations);
         }
 
@@ -174,8 +179,15 @@ namespace BusStationSystem.Controllers
             Station station = _unitOfWork.Stations.Get(id);
             if (station != null)
             {
-                _unitOfWork.Stations.Delete(station);
-                _unitOfWork.Save();
+                try
+                {
+                    _unitOfWork.Stations.Delete(station);
+                    _unitOfWork.Save();
+                }
+                catch (Exception)
+                {
+                    TempData["message"] = $"Operation not possible, station {station.OneLine()} is in use";
+                }
             }
             return RedirectToAction("ViewStations");
         }
@@ -202,8 +214,7 @@ namespace BusStationSystem.Controllers
 
             return View(viewUsers);
         }
-
-
+        
         public IActionResult ViewRoutes()
         {
             Expression<Func<Route, object>>[] expr = new Expression<Func<Route, object>>[] {
@@ -427,7 +438,7 @@ namespace BusStationSystem.Controllers
                         where adress == null || ticket.Client.Adress == adress
                         select ticket.Client;
 
-            return View(model);
+            return View("ViewClientsByTicketAndAdress", model);
         }
 
         public IActionResult AddClient()

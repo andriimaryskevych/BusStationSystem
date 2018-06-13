@@ -22,12 +22,24 @@ namespace BusStationSystem.Controllers
             _signInManager = signInManager;
         }
         
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            await _signInManager.SignOutAsync();
+            Console.WriteLine(User.Identity.IsAuthenticated);
+            if (User.Identity.IsAuthenticated)
+            {
+                Console.WriteLine(User.IsInRole("director"));
+                Console.WriteLine(User.IsInRole("employee"));
+                
+                if (User.IsInRole("director"))
+                {
+                    return RedirectToAction("Index", "DirectorCabinet");
+                }
 
-            Console.WriteLine("Login request");
-
+                if (User.IsInRole("employee"))
+                {
+                    return RedirectToAction("Index", "Employee");
+                }
+            }
             return View();
         }
 

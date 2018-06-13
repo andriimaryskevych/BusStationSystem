@@ -6,6 +6,12 @@
 <br />
 <h2 class="text-center"><strong>Усі станції</strong></h2>
 <br />
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+    </div>
+}
 <table class="table">
     <tr><th>Країна</th><th>Місто</th><th>Місце зупинки</th></tr>
     @foreach (var station in Model)
