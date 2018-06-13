@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Route>
+@{
+    ViewData["Title"] = "Перегляд маршутів";
+}
+
+<br />
+<h2 class="text-center"><strong>Дані маршутів</strong></h2>
+<br />
+@foreach (var route in Model)
+{
+    <div class="card">
+        <h2 class="card-header text-center">@route.Departure.City - @route.Arrival.City</h2>
+        <div class="card-body">
+            <span class="price">@route.Price$</span>
+            <h4 class="card-text">From <span class='station'>@route.Departure.OneLine()</span> to <span class='station'>@route.Arrival.OneLine()</span></h4>
+            <h5>Departure at: <span class='time'>@route.DetartureDate</span></h5>
+            <h5>Arrival at: <span class='time'>@route.ArrivalDate</span></h5>
+            <h6>Bus: @route.Bus.OneLine()</h6>      
+
+            @if (User.IsInRole(BusStationSystem.BLL.Constants.Roles.director))
+            {
+                <form asp-action="DeleteRoute" asp-route-id="@route.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger float-right">
+                        Видалити
+                    </button>
+                </form>  
+                <a class="btn btn-sm btn-primary" asp-action="EditRoute" asp-route-id="@route.Id">Редагувати</a>
+            }
+
+            @if (User.IsInRole(BusStationSystem.BLL.Constants.Roles.employee))
+            {
+                <form asp-action="SellTicket" asp-route-id="@route.Id" method="get">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        Продати квиток
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+}

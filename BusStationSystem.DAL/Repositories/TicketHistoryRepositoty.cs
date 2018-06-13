@@ -20,7 +20,15 @@ namespace BusStationSystem.DAL.Repositories
 
         public IEnumerable<TicketHistory> GetAll(Expression<Func<TicketHistory, object>>[] paths = null)
         {
-            return database.TicketHistories;
+            return database.TicketHistories
+                .Include(a => a.Ticket)
+                    .ThenInclude(a => a.Route)
+                        .ThenInclude(a => a.Arrival)
+                 .Include(a => a.Ticket)
+                    .ThenInclude(a => a.Route)
+                        .ThenInclude(a => a.Departure)
+                 .Include(a => a.Ticket)
+                    .ThenInclude(a => a.Client);
         }
 
         public TicketHistory Get(int id)

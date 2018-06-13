@@ -20,6 +20,11 @@
             @if (User.IsInRole(BusStationSystem.BLL.Constants.Roles.director))
             {
                 <ul class=" navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index">
+                             Index
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Персонал
@@ -66,7 +71,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-action="ViewClientsByAdress" asp-controller="DirectorCabinet" id="navbardrop" data-toggle="dropdown">
+                        <a class="nav-link" asp-action="ViewClientsByAdress" asp-controller="DirectorCabinet">
                             Клієнти з квитком за адресою
                         </a>                        
                     </li>
@@ -76,6 +81,11 @@
             @if (User.IsInRole(BusStationSystem.BLL.Constants.Roles.employee))
             {
                 <ul class=" navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index">
+                            Index
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Квитки

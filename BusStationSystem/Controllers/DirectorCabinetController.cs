@@ -33,11 +33,7 @@ namespace BusStationSystem.Controllers
 
         public IActionResult Index()
         {
-            return View("Index", new DirectorIndexVM ()
-                {
-                    Message = "Directors Cainet"
-                }
-            );
+            return View("Index");
         }
 
         [HttpGet]
@@ -495,6 +491,20 @@ namespace BusStationSystem.Controllers
                 _unitOfWork.Save();
             }
             return RedirectToAction("ViewClients");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewActivety(string id) {
+            var history = from histEntitty in _unitOfWork.TicketHistories.GetAll()
+                          where histEntitty.EmployeeId == id
+                          select histEntitty.Ticket;
+
+            var employee = await _userManager.FindByIdAsync(id);
+
+            return View(new ActivityVM {
+                Name = employee.UserName,
+                Tickets = history
+            });
         }
     }
 }

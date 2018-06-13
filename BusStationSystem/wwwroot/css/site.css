@@ -88,3 +88,7 @@ input.input-validation-error {
     font-weight: bold;
     color: darkred;
 }
+
+.person {
+    font-weight: bold;
+}

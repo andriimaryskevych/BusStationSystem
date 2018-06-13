@@ -31,7 +31,7 @@ namespace BusStationSystem.DAL.Repositories
 
         public Route Get(int id)
         {
-            return database.Routes.Find(id);
+            return database.Routes.Include(a => a.Arrival).Include(a => a.Departure).Include(a => a.Bus).Where(a => a.Id == id).First();                
         }
 
 

@@ -1,9 +1,10 @@
 ﻿@model BusStationSystem.ViewModels.TicketVM
 
 <br />
-<h2 class="text-center"><strong>Квиток для маршруту</strong></h2>
+<h2 class="text-center"><strong>Квиток для маршруту @Model.Route.Departure.City - @Model.Route.Arrival.City</strong></h2>
 <br />
-<div class="container-fluid h-100">
+
+@*<div class="container-fluid h-100">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-sm-3 col-10 offset-2 offset-sm-0">
             <form asp-action="SellTicket">
@@ -20,4 +21,23 @@
             </form>
         </div>
     </div>
+</div>*@
+
+<div class="card-body">
+    <span class="price">@Model.Route.Price$</span>
+    <h4 class="card-text">From <span class='station'>@Model.Route.Departure.OneLine()</span> to <span class='station'>@Model.Route.Arrival.OneLine()</span></h4>
+    <h5>Departure at: <span class='time'>@Model.Route.DetartureDate</span></h5>
+    <h5>Arrival at: <span class='time'>@Model.Route.ArrivalDate</span></h5>
+    <h6>Bus: @Model.Route.Bus.OneLine()</h6>
+    <br />
+    <form method="post" asp-action="SellTicket">
+        <div asp-validation-summary="All"></div>
+        <input asp-for="RouteId" value="@Model.Route.Id" hidden />        
+        <div class="form-group">
+            <select asp-for="Client" asp-items="@Model.Clients" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Продати" class="btn btn-lg btn-block" />
+        </div>
+    </form>
 </div>

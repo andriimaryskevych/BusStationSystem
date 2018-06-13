@@ -21,7 +21,7 @@ namespace BusStationSystem.DAL.Repositories
 
         public IEnumerable<Ticket> GetAll(Expression<Func<Ticket, object>>[] paths = null)
         {
-            return database.Tickets;
+            return database.Tickets.Include(a => a.Client);
         }
 
         public Ticket Get(int id)

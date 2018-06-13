@@ -1,15 +1,17 @@
-﻿@model IEnumerable<BusStationSystem.DAL.Entities.TicketHistory>
+﻿@model IEnumerable<TicketHistory>
 
 <br />
 <h2 class="text-center"><strong>Квитки</strong></h2>
 <br />
 <table class="table">
-    <tr><th>Працівник</th><th>Квиток</th></tr>
+    <tr><th>Клієнт</th><th>Напрямок</th><th>Ціна</th><th>Дата</th></tr>
     @foreach (var ticket in Model)
     {
         <tr>
-            <td>@ticket.EmploeeId</td>
-            <td>@ticket.TicketId</td>
+            <td>@ticket.Ticket.Client.FirstName @ticket.Ticket.Client.LastName</td>
+            <td>@ticket.Ticket.Route.Departure.City - @ticket.Ticket.Route.Arrival.City</td>
+            <td>@ticket.Ticket.Route.Price</td>
+            <td>@ticket.Ticket.SaleDate</td>
         </tr>
     }
 </table>
