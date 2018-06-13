@@ -24,22 +24,54 @@ namespace Users.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //public ViewResult Index() =>
-        //    View("Index", "Employee workspace");
+        public ViewResult Index() =>
+            View("Index", "Employee workspace");
 
-        //public IActionResult ViewRoutes()
-        //{
-        //    var routes = _unitOfWork.Routes.GetAll();
+        public IActionResult ViewRoutes()
+        {
+            var routes = _unitOfWork.Routes.GetAll();
 
-        //    return View(routes);
-        //}
+            return View(routes);
+        }
 
-        //public IActionResult SellTicket(string id)
-        //{
-        //    TicketVM model = new TicketVM() { RouteNumber = id };
-        //    return View(model);
-        //}
+        public IActionResult SellTicket(string id)
+        {
+            TicketVM model = new TicketVM() { RouteNumber = id };
+            return View(model);
+        }
 
+        public IActionResult ViewClients()
+        {
+            var model = _unitOfWork.Clients.GetAll();
+
+            return View(model);
+        }
+
+        public IActionResult AddClient()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddClient(Client client)
+        {
+            _unitOfWork.Clients.Create(client);
+            _unitOfWork.Save();
+
+            return RedirectToAction("ViewClients");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteClient(int id)
+        {
+            Client client = _unitOfWork.Clients.Get(id);
+            if (client != null)
+            {
+                _unitOfWork.Clients.Delete(client);
+                _unitOfWork.Save();
+            }
+            return RedirectToAction("ViewClients");
+        }
         //[HttpPost]
         //public async Task<IActionResult> SellTicket(Ticket ticket)
         //{
