@@ -43,7 +43,23 @@ namespace BusStationSystem.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            var roles = new List<SelectListItem>()
+                {
+                    new SelectListItem
+                        {
+                            Value = "director",
+                            Text = "director"
+                        },
+                    new SelectListItem
+                        {
+                            Value = "employee",
+                            Text = "employee"
+                        }
+                }.AsEnumerable();
+
+            return View(new RegisterVM {
+                Roles = roles
+            });
         }
 
         [HttpPost]
@@ -58,9 +74,7 @@ namespace BusStationSystem.Controllers
                 {
                     var currentUser = await _userManager.FindByNameAsync(user.UserName);
 
-                    var roleresult = await _userManager.AddToRoleAsync(currentUser, "employee");
-
-                    return View();
+                    var roleresult = await _userManager.AddToRoleAsync(currentUser, model.Role);
                 }
                 else
                 {
@@ -195,24 +209,40 @@ namespace BusStationSystem.Controllers
         public async Task<IActionResult> ViewPersonal()
         {
             var users = _userManager.Users.ToList();
-            var viewUsers = new List<UserVM>();
+            var name = User.Identity.Name;
+
+            var directors = new List<Person>();
+            var employees = new List<Person>();
 
             foreach (var item in users)
             {
                 bool isDirector = await _userManager.IsInRoleAsync(item, Roles.director.ToString());
-                if (!isDirector)
+
+                if (isDirector)
                 {
-                    var viewUser = new UserVM
+                    if (item.UserName != name)
+                    {
+                        directors.Add(new Person
+                        {
+                            Id = item.Id,
+                            Name = item.UserName
+                        });
+                    }
+                }
+                else 
+                {
+                    employees.Add(new Person
                     {
                         Id = item.Id,
-                        UserNameSurname = item.UserName
-                    };
-
-                    viewUsers.Add(viewUser);
+                        Name = item.UserName
+                    });
                 }
             }
 
-            return View(viewUsers);
+            return View(new PersonalVM {
+                Directors = directors,
+                Employees = employees
+            });
         }
         
         public IActionResult ViewRoutes()

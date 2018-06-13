@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusStationSystem.ViewModels.UserVM>
+﻿@model PersonalVM
 @{
     ViewData["Title"] = "Перегляд працівників";
 }
@@ -8,10 +8,10 @@
 <br />
 <table class="table">
     <tr><th>Ім'я та прізвище</th><th></th><th></th><th></th></tr>
-    @foreach (var user in Model)
+    @foreach (var user in Model.Employees)
     {
         <tr>
-            <td>@user.UserNameSurname</td>
+            <td>@user.Name</td>
             <td>
                 <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@user.Id">Редагувати</a>
             </td>
@@ -22,6 +22,26 @@
                     </button>
                 </form>
             </td>
+            <td>
+                <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Видалити
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+<h2 class="text-center"><strong>Дані директорів</strong></h2>
+<br />
+<table class="table">
+    <tr><th>Ім'я та прізвище</th><th></th></tr>
+    @foreach (var user in Model.Directors)
+    {
+        <tr>
+            <td>@user.Name</td>            
             <td>
                 <form asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
                     <button type="submit" class="btn btn-sm btn-danger">

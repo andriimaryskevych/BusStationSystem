@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BusStationSystem.ViewModels
 {
@@ -22,5 +23,8 @@ namespace BusStationSystem.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Підтвердити пароль")]
         public string PasswordConfirm { get; set; }
+
+        public IEnumerable<SelectListItem> Roles { get; set; }        
+        public string Role { get; set; }
     }
 }
