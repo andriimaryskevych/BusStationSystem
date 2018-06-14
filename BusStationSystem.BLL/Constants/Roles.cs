@@ -8,5 +8,6 @@ namespace BusStationSystem.BLL.Constants
     {
         public const string director = "director";
         public const string employee = "employee";
+        public const string owner = "owner";
     }
 }

@@ -1,0 +1,37 @@
+﻿@model DirectorVM
+@{
+    ViewData["Title"] = "Director";
+}
+
+<br />
+<h2 class="text-center"><strong>Директор</strong></h2>
+<br />
+
+@if (Model.Name == null)
+{
+    <p>No current director</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>@Model.Name</td>
+            <td>
+                <form asp-action="DeleteCurrent" asp-route-id="@Model.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Видалити з посади
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+}
+
+
+

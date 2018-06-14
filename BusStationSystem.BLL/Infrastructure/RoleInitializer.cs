@@ -14,8 +14,8 @@ namespace BusStationSystem.BLL.Infrastructure
     {
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            string directorName = "director";
-            string password = "director131";
+            string owner = "owner";
+            string password = "12121212";
 
             if (await roleManager.FindByNameAsync(Roles.director) == null)
             {
@@ -25,14 +25,18 @@ namespace BusStationSystem.BLL.Infrastructure
             {
                 await roleManager.CreateAsync(new IdentityRole(Roles.employee));
             }
-
-            if (await userManager.FindByNameAsync(directorName) == null)
+            if (await roleManager.FindByNameAsync(Roles.owner) == null)
             {
-                var admin = new User { UserName = directorName };
+                await roleManager.CreateAsync(new IdentityRole(Roles.owner));
+            }
+
+            if (await userManager.FindByNameAsync(owner) == null)
+            {
+                var admin = new User { UserName = owner };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(admin, Roles.director);
+                    await userManager.AddToRoleAsync(admin, Roles.owner);
                 }
             }
         }

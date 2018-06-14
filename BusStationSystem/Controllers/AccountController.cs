@@ -39,6 +39,11 @@ namespace BusStationSystem.Controllers
                 {
                     return RedirectToAction("Index", "Employee");
                 }
+
+                if (User.IsInRole("owner"))
+                {
+                    return RedirectToAction("Index", "Owner");
+                }
             }
             return View();
         }
@@ -64,6 +69,11 @@ namespace BusStationSystem.Controllers
                     if (roles.Contains("employee"))
                     {
                         return RedirectToAction("Index", "Employee");
+                    }
+
+                    if (roles.Contains("owner"))
+                    {
+                        return RedirectToAction("Index", "Owner");
                     }
 
                     return View(model);

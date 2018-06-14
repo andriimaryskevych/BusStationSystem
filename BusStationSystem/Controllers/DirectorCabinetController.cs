@@ -39,23 +39,7 @@ namespace BusStationSystem.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            var roles = new List<SelectListItem>()
-                {
-                    new SelectListItem
-                        {
-                            Value = "director",
-                            Text = "director"
-                        },
-                    new SelectListItem
-                        {
-                            Value = "employee",
-                            Text = "employee"
-                        }
-                }.AsEnumerable();
-
-            return View(new RegisterVM {
-                Roles = roles
-            });
+            return View();
         }
 
         [HttpPost]
@@ -70,7 +54,7 @@ namespace BusStationSystem.Controllers
                 {
                     var currentUser = await _userManager.FindByNameAsync(user.UserName);
 
-                    var roleresult = await _userManager.AddToRoleAsync(currentUser, model.Role);
+                    var roleresult = await _userManager.AddToRoleAsync(currentUser, "employee");
                 }
                 else
                 {
@@ -153,7 +137,6 @@ namespace BusStationSystem.Controllers
             return RedirectToAction("ViewBuses");
         }
 
-
         public IActionResult ViewStations()
         {
             var stations = _unitOfWork.Stations.GetAll();
@@ -207,25 +190,13 @@ namespace BusStationSystem.Controllers
             var users = _userManager.Users.ToList();
             var name = User.Identity.Name;
 
-            var directors = new List<Person>();
             var employees = new List<Person>();
 
             foreach (var item in users)
             {
                 bool isDirector = await _userManager.IsInRoleAsync(item, Roles.director.ToString());
 
-                if (isDirector)
-                {
-                    if (item.UserName != name)
-                    {
-                        directors.Add(new Person
-                        {
-                            Id = item.Id,
-                            Name = item.UserName
-                        });
-                    }
-                }
-                else 
+                if (!isDirector)
                 {
                     employees.Add(new Person
                     {
@@ -236,7 +207,6 @@ namespace BusStationSystem.Controllers
             }
 
             return View(new PersonalVM {
-                Directors = directors,
                 Employees = employees
             });
         }

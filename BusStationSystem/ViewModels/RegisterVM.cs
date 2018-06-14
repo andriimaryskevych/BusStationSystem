@@ -23,8 +23,5 @@ namespace BusStationSystem.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Підтвердити пароль")]
         public string PasswordConfirm { get; set; }
-
-        public IEnumerable<SelectListItem> Roles { get; set; }        
-        public string Role { get; set; }
     }
 }
