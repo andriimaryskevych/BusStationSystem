@@ -39,6 +39,18 @@ namespace BusStationSystem.BLL.Infrastructure
                     await userManager.AddToRoleAsync(admin, Roles.owner);
                 }
             }
+
+            string director = "director";
+            string pass= "12121212";
+            if (await userManager.FindByNameAsync(director) == null)
+            {
+                var admin = new User { UserName = director };
+                IdentityResult result = await userManager.CreateAsync(admin, pass);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(admin, Roles.director);
+                }
+            }
         }
     }
 }

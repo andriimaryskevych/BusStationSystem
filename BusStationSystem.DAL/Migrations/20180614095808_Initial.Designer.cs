@@ -11,8 +11,8 @@ using System;
 namespace BusStationSystem.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20180609155039_Initial5")]
-    partial class Initial5
+    [Migration("20180614095808_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -138,15 +138,13 @@ namespace BusStationSystem.DAL.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("TicketId");
+                    b.Property<string>("EmployeeId");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("TicketId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TicketHistories");
                 });
@@ -233,11 +231,6 @@ namespace BusStationSystem.DAL.Migrations
                     b.HasOne("BusStationSystem.DAL.Entities.Ticket", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("BusStationSystem.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

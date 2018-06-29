@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusStationSystem.DAL.Migrations.ApplicationIdentity
 {
-    public partial class Initial : Migration
+    public partial class Initial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

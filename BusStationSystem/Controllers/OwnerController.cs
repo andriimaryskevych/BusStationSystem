@@ -65,7 +65,7 @@ namespace BusStationSystem.Controllers
             foreach (var item in users)
             {
                 bool isDirector = await _userManager.IsInRoleAsync(item, Roles.director.ToString());
-
+                //bool isOwner = await _userManager.IsInRoleAsync(item, Roles.director.ToString());
                 if (isDirector)
                 {
                     model.Name = item.UserName;
@@ -95,10 +95,15 @@ namespace BusStationSystem.Controllers
             return RedirectToAction("AddNew");
         }
 
-        //[HttpPost]
-        //public IActionResult AddNew()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public async Task<IActionResult> AddNew(DirectorVM director)
+        {
+            User user = await _userManager.FindByIdAsync(director.Id);
+
+            await _userManager.RemoveFromRoleAsync(user, Roles.employee);
+
+            await _userManager.AddToRoleAsync(user, Roles.director);
+            return RedirectToAction("DeleteCurrent");
+        }
     }
 }

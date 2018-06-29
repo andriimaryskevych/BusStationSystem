@@ -1,0 +1,61 @@
+Client
+--
+id int PK
+FirstName string
+LastName string
+Adress string
+
+Ticket
+--
+id int PK
+RouteID FK >- Routes.id
+ClientID FK >- Client.id
+SaleDate
+
+
+Routes 
+--
+id int PK
+Departure int
+DepartureDate date
+Arrival int FK >- Station.id
+ArrivalDate date
+Bus int FK >- Bus.id
+Price int
+
+Station
+--
+id int PK
+Country string
+City string
+Station string
+
+Bus
+--
+id int PK
+Make string
+Model string
+ProductionYear date
+
+Users 
+--
+id int PK
+Name string
+Password string
+
+UserRoles
+--
+UserID FK >- Users.id
+RoleID FK >- Roles.id
+
+Roles
+--
+id int PK
+Name sting 
+
+
+Stats
+--
+id int PK
+TicketID int FK >- Ticket.id
+UserID int FK >- Users.id

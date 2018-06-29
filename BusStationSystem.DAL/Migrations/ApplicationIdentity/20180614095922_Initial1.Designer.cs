@@ -11,8 +11,8 @@ using System;
 namespace BusStationSystem.DAL.Migrations.ApplicationIdentity
 {
     [DbContext(typeof(ApplicationIdentityContext))]
-    [Migration("20180609155419_Initial")]
-    partial class Initial
+    [Migration("20180614095922_Initial1")]
+    partial class Initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
